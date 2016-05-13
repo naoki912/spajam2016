@@ -98,3 +98,6 @@ fabric.properties
 # *.iml
 # modules.xml
 
+
+### my gitignore ###
+.DS_Store
