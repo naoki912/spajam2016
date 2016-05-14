@@ -19,7 +19,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.Button">
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
         <item name="android:paddingTop">8sp</item>
         <item name="android:paddingBottom">8sp</item>
         <item name="android:background">@drawable/button_background</item>
