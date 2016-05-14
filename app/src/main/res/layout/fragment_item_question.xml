@@ -6,10 +6,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello world!!!"
+        android:text="Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!"
+        android:textSize="32sp"
         android:id="@+id/fragment_item_question__text_view"
-        android:textSize="32dp"
-        android:autoText="false"
-        android:padding="8dp"
-        android:background="@drawable/message_background" />
+        android:background="@drawable/test" />
 </RelativeLayout>
