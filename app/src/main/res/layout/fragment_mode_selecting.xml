@@ -13,28 +13,30 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignRight="@+id/center_view">
+        android:layout_alignEnd="@+id/center_view">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="QUESTION"
+            android:text="question"
             android:id="@+id/fragment_mode_selecting__select_question_button"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignLeft="@+id/center_view">
+        android:layout_alignStart="@+id/center_view">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="COMINGOUT"
+            android:text="coming out"
             android:id="@+id/fragment_mode_selecting__select_coming_out_button"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp" />
     </RelativeLayout>
-</>
+</RelativeLayout>
