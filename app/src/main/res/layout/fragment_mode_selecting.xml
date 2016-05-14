@@ -13,12 +13,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignEnd="@+id/center_view">
+        android:layout_alignEnd="@+id/center_view"
+        android:id="@+id/zz">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="question"
+            android:text="Question"
             android:id="@+id/fragment_mode_selecting__select_question_button"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
@@ -33,7 +34,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="coming out"
+            android:text="Coming out"
             android:id="@+id/fragment_mode_selecting__select_coming_out_button"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
