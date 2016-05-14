@@ -4,7 +4,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="join">参加</string>
-    <string name="create">グループの作成</string>
-    <string name="group_id">グループID</string>
+    <string name="join">Join</string>
+    <string name="create">Create a new group</string>
+    <string name="group_id">Group ID</string>
+    <string name="welcome">Welcome</string>
 </resources>
