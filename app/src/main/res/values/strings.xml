@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Spajam2016</string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="join">参加</string>
+    <string name="create">グループの作成</string>
 </resources>
