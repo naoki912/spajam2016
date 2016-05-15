@@ -5,26 +5,26 @@
     tools:context="wcdi.spajam2016.ComingOutInputFragment">
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_coming_out_input__text_edit_view"
         android:textSize="32sp"
-        android:background="@drawable/text_edit_background"
+        android:background="@drawable/test"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp"
         android:hint="Coming out"
-        android:padding="8dp" />
+        android:layout_marginTop="60dp"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send"
         android:id="@+id/fragment_coming_out_input__decision_button"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="160dp" />
+        android:layout_below="@+id/fragment_coming_out_input__text_edit_view"
+        android:layout_marginTop="48dp" />
 
 </RelativeLayout>
