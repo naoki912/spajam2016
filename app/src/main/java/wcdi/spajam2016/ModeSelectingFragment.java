@@ -112,7 +112,7 @@ public class ModeSelectingFragment extends Fragment {
                             try {
                                 JSONObject object = new JSONObject(data);
                                 final Integer session_id = object.getInt("id");
-                                if (session_id > 0) {
+                                //if (session_id > 0) {
                                     if (object.getString("flag").equals("question")) {
                                         listener.onQuestionModeChanged(
                                             groupId,
@@ -128,7 +128,7 @@ public class ModeSelectingFragment extends Fragment {
                                             session_id
                                         );
                                     }
-                                }
+                                //}
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
