@@ -94,23 +94,32 @@
                 android:id="@+id/fragment_mode_selecting__select_coming_out_button"
                 android:layout_margin="4dp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView3"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/buttyake"
-                android:layout_gravity="center_horizontal|top" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="113dp"
-                android:layout_height="wrap_content"
-                android:text="Coming     out"
-                android:id="@+id/textView4"
-                android:textSize="32sp"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="48dp"
-                android:layout_gravity="center" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView3"
+                    android:src="@drawable/buttyake"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp" />
+
+                <TextView
+                    android:layout_width="113dp"
+                    android:layout_height="wrap_content"
+                    android:text="Coming     out"
+                    android:id="@+id/textView4"
+                    android:textSize="32sp"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/imageView3"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
         </FrameLayout>
 
         <FrameLayout
@@ -121,16 +130,6 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Question"
-                android:id="@+id/textView5"
-                android:textColor="@android:color/white"
-                android:textSize="32sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="48dp" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -138,13 +137,32 @@
                 android:layout_margin="4dp"
                 android:layout_gravity="center" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView4"
-                android:src="@drawable/gimon"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal|top" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView4"
+                    android:src="@drawable/gimon"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Question"
+                    android:id="@+id/textView5"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/imageView4"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
         </FrameLayout>
 
     </RelativeLayout>
