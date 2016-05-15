@@ -1,22 +1,35 @@
 package wcdi.spajam2016;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 public class ModeSelectingFragment extends Fragment {
+
+    public interface OnEventListener {
+        void onQuestionModeSelected(Integer groupId, Integer password, Integer userId, Integer sessionId);
+        void onComingOutModeSelected(Integer groupId, Integer password, Integer userId, Integer sessionId);
+    }
+
     public static final String ARG_PARAM1 = "param1";
     public static final String ARG_PARAM2 = "param2";
     public static final String ARG_PARAM3 = "param3";
     public Integer groupId;
     public Integer password;
     public Integer userId;
-
-    private OnFragmentInteractionListener mListener;
+    public OnEventListener listener;
 
     public ModeSelectingFragment() {
     }
@@ -32,6 +45,7 @@ public class ModeSelectingFragment extends Fragment {
         args.putInt(ARG_PARAM2, password);
         args.putInt(ARG_PARAM3, userId);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -55,24 +69,114 @@ public class ModeSelectingFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.select_question_button).setOnClickListener((View v) -> {
+            getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
+                @Override
+                public Loader<String> onCreateLoader(int id, Bundle args) {
+                    return new AsyncTaskLoader<String>(getContext()) {
+                        @Override
+                        public String loadInBackground() {
+                            try {
+                                return utils.postURL("http://spajam.hnron.net:8080/create_question/" + groupId.toString());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                return null;
+                            }
+                        }
+                    };
+                }
+
+                @Override
+                public void onLoadFinished(Loader<String> loader, String data) {
+                    getLoaderManager().destroyLoader(0);
+
+                    if (data == null) {
+                        return;
+                    }
+                    try {
+                        JSONObject object = new JSONObject(data);
+
+                        listener.onQuestionModeSelected(
+                                groupId,
+                                password,
+                                userId,
+                                object.getInt("question_group_id")
+                        );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onLoaderReset(Loader<String> loader) {
+                }
+            }).forceLoad();
+        });
+
+        view.findViewById(R.id.select_coming_out_button).setOnClickListener((View v) -> {
+            getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
+                @Override
+                public Loader<String> onCreateLoader(int id, Bundle args) {
+                    return new AsyncTaskLoader<String>(getContext()) {
+                        @Override
+                        public String loadInBackground() {
+                            try {
+                                return utils.postURL("http://spajam.hnron.net:8080/create_coming_out/" + groupId.toString());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                return null;
+                            }
+                        }
+                    };
+                }
+
+                @Override
+                public void onLoadFinished(Loader<String> loader, String data) {
+                    getLoaderManager().destroyLoader(0);
+
+                    if (data == null) {
+                        return;
+                    }
+                    try {
+                        JSONObject object = new JSONObject(data);
+
+                        listener.onComingOutModeSelected(
+                                groupId,
+                                password,
+                                userId,
+                                object.getInt("coming_out_group_id")
+                        );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onLoaderReset(Loader<String> loader) {
+                }
+            }).forceLoad();
+        });
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnEventListener) {
+            listener = (OnEventListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnEventListener");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        listener = null;
     }
 }
