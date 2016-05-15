@@ -17,7 +17,7 @@
             android:text="Group ID"
             android:textColor="@android:color/white"
             android:textSize="16dp"
-            android:id="@+id/Hello2"
+            android:id="@+id/dummy"
             android:layout_marginLeft="24dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
@@ -26,37 +26,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1111"
-            android:id="@+id/textView2"
+            android:id="@+id/group_id"
             android:textColor="@android:color/white"
             android:textSize="16dp"
             android:layout_marginRight="24dp"
             android:layout_marginStart="30dp"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/Hello2" />
+            android:layout_toEndOf="@+id/dummy" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/group_id"
+            android:id="@+id/number_of_member"
             android:hint="id"
             android:text="9999"
             android:textSize="16dp"
             android:textColor="@android:color/white"
             android:layout_marginRight="24dp"
-            android:layout_alignTop="@+id/Hello2"
+            android:layout_alignTop="@+id/dummy"
             android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="member"
-            android:id="@+id/number_of_member"
+            android:id="@+id/dummy2"
             android:textSize="16dp"
             android:textColor="@android:color/white"
             android:layout_marginLeft="24dp"
             android:layout_marginEnd="30dp"
-            android:layout_alignTop="@+id/group_id"
-            android:layout_toStartOf="@+id/group_id" />
+            android:layout_alignTop="@+id/number_of_member"
+            android:layout_toStartOf="@+id/number_of_member" />
     </RelativeLayout>
 
     <TextView
@@ -70,43 +70,31 @@
         android:textSize="40sp"
         android:textColor="@android:color/white" />
 
-    <View
-        android:id="@+id/center_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerInParent="true"
-        />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignTop="@+id/center_view">
+        android:layout_marginTop="288dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
 
-
-        <View
-            android:id="@+id/center_view2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true"
-            />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignEnd="@+id/center_view2">
+            android:layout_marginRight="192dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView3"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/buttyake" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/fragment_mode_selecting__select_coming_out_button"
                 android:layout_margin="4dp" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView3"
-                android:src="@drawable/buttyake"
-                android:layout_marginTop="32dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,13 +110,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/center_view2">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/fragment_mode_selecting__select_question_button"
-                android:layout_margin="4dp" />
+            android:layout_marginLeft="192dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -136,6 +118,12 @@
                 android:id="@+id/imageView4"
                 android:src="@drawable/gimon"
                 android:layout_marginTop="32dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_mode_selecting__select_question_button"
+                android:layout_margin="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
