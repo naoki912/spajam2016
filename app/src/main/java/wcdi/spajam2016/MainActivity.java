@@ -48,10 +48,20 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onQuestionModeSelected(Integer groupId, Integer password, Integer userId, Integer sessionId) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, QuestionInputFragment.newInstance(sessionId, userId))
+                .commit();
+        });
     }
 
     @Override
     public void onComingOutModeSelected(Integer groupId, Integer password, Integer userId, Integer sessionId) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ComingOutInputFragment.newInstance(sessionId, userId))
+                .commit();
+        });
 
     }
 }
