@@ -6,12 +6,12 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="test"
         android:id="@+id/fragment_coming_out_input__text_edit_view"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:background="@drawable/text_edit_background"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
