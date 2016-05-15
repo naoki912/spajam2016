@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onQuestionModeChanged(Integer groupId, Integer password, Integer userId, Integer sessionId) {
         new Handler(Looper.getMainLooper()).post(() -> {
             getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, QuestionInputFragment.newInstance(groupId, password, userId, sessionId))
+                .replace(R.id.fragment_container, QuestionInputFragment.newInstance(sessionId, userId))
                 .commit();
         });
     }
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onComingOutModeChanged(Integer groupId, Integer password, Integer userId, Integer sessionId) {
         new Handler(Looper.getMainLooper()).post(() -> {
             getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, ComingOutFragment.newInstance(groupId, password, userId, sessionId))
+                .replace(R.id.fragment_container, ComingOutInputFragment.newInstance(sessionId, userId))
                 .commit();
         });
     }
