@@ -77,6 +77,8 @@ public class ModeSelectingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final TextView groupIdView = (TextView) view.findViewById(R.id.group_id);
+        groupIdView.setText(password.toString());
+
         final TextView numberOfMembersView = (TextView) view.findViewById(R.id.number_of_member);
 
         new Thread(new Runnable() {
