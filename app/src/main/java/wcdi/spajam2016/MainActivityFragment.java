@@ -20,12 +20,20 @@ import java.io.IOException;
 public class MainActivityFragment extends Fragment {
 
     public static interface OnEventListener {
-        public abstract void onJoin(int groupId, int password, int userId);
+        public abstract void onJoin(Integer groupId, Integer password, Integer userId);
     }
 
     OnEventListener onEventListener;
 
     public MainActivityFragment() {
+    }
+
+    public static MainActivityFragment newInstance() {
+        MainActivityFragment fragment = new MainActivityFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override

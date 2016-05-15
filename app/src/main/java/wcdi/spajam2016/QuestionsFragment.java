@@ -74,12 +74,9 @@ public class QuestionsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getActivity(), R.layout.fragment_item_question, R.id.question
         );
-
     }
 
     @Override

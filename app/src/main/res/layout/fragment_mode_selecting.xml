@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Question"
-        android:id="@+id/fragment_mode_selecting__select_question_button"
+        android:id="@+id/select_question_button"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_centerVertical="true"
@@ -19,17 +19,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Coming out"
-        android:id="@+id/fragment_mode_selecting__select_coming_out_button"
+        android:id="@+id/select_coming_out_button"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/fragment_mode_selecting__select_question_button"
+        android:layout_below="@+id/select_question_button"
         android:layout_centerInParent="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
+        android:id="@+id/number_of_member"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp" />
