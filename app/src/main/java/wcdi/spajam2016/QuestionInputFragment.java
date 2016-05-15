@@ -23,8 +23,8 @@ public class QuestionInputFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private Integer state_group_id;
-    private Integer user_id;
+    private int state_group_id;
+    private int user_id;
 
     public QuestionInputFragment() {
     }
@@ -35,14 +35,14 @@ public class QuestionInputFragment extends Fragment {
         bundle.putInt(EXTRA_INT__STATE_GROUP_ID, state_group_id);
         bundle.putInt(EXTRA_INT__USER_ID, user_id);
         fragment.setArguments(bundle);
-        return new QuestionInputFragment();
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            Bundle bundle = new Bundle();
+            Bundle bundle = getArguments();
             this.state_group_id = bundle.getInt(EXTRA_INT__STATE_GROUP_ID);
             this.user_id = bundle.getInt(EXTRA_INT__USER_ID);
         }
@@ -114,7 +114,7 @@ public class QuestionInputFragment extends Fragment {
         });
     }
 
-    @Override
+/*    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -123,7 +123,7 @@ public class QuestionInputFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach() {
