@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements
     MainActivityFragment.OnEventListener,
@@ -22,8 +21,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onJoin(Integer groupId, Integer password, Integer userId) {
-        Toast.makeText(this, password.toString(), Toast.LENGTH_SHORT).show();
-
         new Handler(Looper.getMainLooper()).post(() -> {
             getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, ModeSelectingFragment.newInstance(groupId, password, userId))
@@ -32,8 +29,25 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onQuestionModeChanged(Integer groupId, Integer password, Integer userId, Integer sessionId) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, QuestionInputFragment.newInstance(groupId, password, userId, sessionId))
+                .commit();
+        });
+    }
+
+    @Override
+    public void onComingOutModeChanged(Integer groupId, Integer password, Integer userId, Integer sessionId) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ComingOutFragment.newInstance(groupId, password, userId, sessionId))
+                .commit();
+        });
+    }
+
+    @Override
     public void onQuestionModeSelected(Integer groupId, Integer password, Integer userId, Integer sessionId) {
-        Toast.makeText(this, sessionId.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

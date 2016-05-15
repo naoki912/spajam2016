@@ -22,8 +22,9 @@ import java.io.IOException;
 public class ModeSelectingFragment extends Fragment {
 
     public interface OnEventListener {
+        void onQuestionModeChanged(Integer groupId, Integer password, Integer userId, Integer sessionId);
+        void onComingOutModeChanged(Integer groupId, Integer password, Integer userId, Integer sessionId);
         void onQuestionModeSelected(Integer groupId, Integer password, Integer userId, Integer sessionId);
-
         void onComingOutModeSelected(Integer groupId, Integer password, Integer userId, Integer sessionId);
     }
 
@@ -84,25 +85,54 @@ public class ModeSelectingFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (numberOfMembersView != null) {
+                while (numberOfMembersView != null && listener != null) {
                     try {
                         String data = utils.getURL(
                             "http://spajam.hnron.net:8080/group/users/" + groupId.toString()
                         );
 
-                        if (data == null) {
-                            continue;
+                        if (data != null) {
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                try {
+                                    numberOfMembersView.setText(String.valueOf(
+                                        new JSONObject(data).getInt("number_of_people")
+                                    ));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            });
                         }
 
-                        new Handler(Looper.getMainLooper()).post(() -> {
+
+                        String data2 = utils.getURL(
+                            "http://spajam.hnron.net:8080/state_group/latest/" + groupId.toString()
+                        );
+
+                        if (data2 != null) {
                             try {
-                                numberOfMembersView.setText(String.valueOf(
-                                    new JSONObject(data).getInt("number_of_people")
-                                ));
+                                JSONObject object = new JSONObject(data);
+                                final Integer session_id = object.getInt("id");
+                                if (session_id > 0) {
+                                    if (object.getString("flag").equals("question")) {
+                                        listener.onQuestionModeChanged(
+                                            groupId,
+                                            password,
+                                            userId,
+                                            session_id
+                                        );
+                                    } else {
+                                        listener.onComingOutModeChanged(
+                                            groupId,
+                                            password,
+                                            userId,
+                                            session_id
+                                        );
+                                    }
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        });
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
