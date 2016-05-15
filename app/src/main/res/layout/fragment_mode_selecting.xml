@@ -34,4 +34,21 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Group ID"
+        android:id="@+id/group_id"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:layout_alignBottom="@+id/number_of_member"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/group_id"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
