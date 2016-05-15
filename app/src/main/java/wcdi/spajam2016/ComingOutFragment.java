@@ -1,52 +1,40 @@
 package wcdi.spajam2016;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ComingOutFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ComingOutFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ComingOutFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String EXTRA_INT__STATE_GROUP_ID = "state_group_id";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int state_group_id;
 
     private OnFragmentInteractionListener mListener;
 
     public ComingOutFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ComingOutFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ComingOutFragment newInstance(String param1, String param2) {
+    public static ComingOutFragment newInstance(int state_group_id) {
         ComingOutFragment fragment = new ComingOutFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(EXTRA_INT__STATE_GROUP_ID, state_group_id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,8 +43,7 @@ public class ComingOutFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            state_group_id = getArguments().getInt(EXTRA_INT__STATE_GROUP_ID);
         }
     }
 
@@ -67,14 +54,69 @@ public class ComingOutFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_coming_out_list, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ArrayList<String> list = new ArrayList<>();
+
+        getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
+                    @Override
+                    public Loader<String> onCreateLoader(int id, Bundle args) {
+                        return new AsyncTaskLoader<String>(getContext()) {
+                            @Override
+                            public String loadInBackground() {
+                                try {
+                                    return utils.getURL("http://spajam.hnron.net:8080/question/"
+                                                    + String.valueOf(state_group_id)
+                                    );
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    return null;
+                                }
+                            }
+                        };
+                    }
+
+                    @Override
+                    public void onLoadFinished(Loader<String> loader, String data) {
+                        getLoaderManager().destroyLoader(0);
+
+                        if (data == null) {
+                            return;
+                        }
+                        try {
+                            JSONObject object = new JSONObject(data);
+
+                            if (object.getJSONArray("coming_out_texts") == null) {
+                                return;
+                            }
+
+                            JSONArray jsonArray = object.getJSONArray("coming_out_texts");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                list.add(jsonArray.getString(i));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            @Override
+            public void onLoaderReset(Loader<String> loader) {
+            }
+        }).forceLoad();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getActivity(), R.layout.fragment_item_coming_out, R.id.fragment_item_coming_out__text_view
+        );
+
+        ListView listView = (ListView) view.findViewById(R.id.fragment_coming_out_list__text_list);
+        listView.setAdapter(adapter);
+        adapter.addAll(list);
     }
 
-    @Override
+/*    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -83,7 +125,7 @@ public class ComingOutFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach() {
@@ -91,16 +133,6 @@ public class ComingOutFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
