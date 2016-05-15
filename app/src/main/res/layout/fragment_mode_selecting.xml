@@ -4,34 +4,99 @@
     android:layout_height="match_parent"
     tools:context="wcdi.spajam2016.ModeSelectingFragment">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Question"
-        android:id="@+id/fragment_mode_selecting__select_question_button"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="320dp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Coming out"
-        android:id="@+id/fragment_mode_selecting__select_coming_out_button"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/fragment_mode_selecting__select_question_button"
-        android:layout_centerInParent="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp" />
+        android:layout_marginTop="128dp"
+        android:text="Please select mode"
+        android:textSize="40dp"
+        android:textColor="@android:color/white" />
+
+    <View
+        android:id="@+id/center_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/center_view">
+
+
+        <View
+            android:id="@+id/center_view2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/center_view2">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_mode_selecting__select_coming_out_button"
+                android:layout_alignTop="@+id/fragment_mode_selecting__select_question_button"
+                android:layout_toEndOf="@+id/fragment_mode_selecting__select_question_button"
+                android:layout_margin="4dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView3"
+                android:src="@drawable/Buttyake"
+                android:layout_marginTop="32dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coming out"
+                android:id="@+id/textView4"
+                android:textSize="32dp"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/center_view2">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_mode_selecting__select_question_button"
+                android:layout_centerVertical="true"
+                android:layout_alignEnd="@+id/center_view2"
+                android:layout_margin="4dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView4"
+                android:src="@drawable/Gimon"
+                android:layout_marginTop="32dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question"
+                android:id="@+id/textView5"
+                android:textColor="@android:color/white"
+                android:textSize="32dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp" />
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
