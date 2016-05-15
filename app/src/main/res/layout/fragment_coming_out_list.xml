@@ -6,11 +6,18 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="222dp" />
+        android:id="@+id/fragment_coming_out_list__text_list"
+        android:layout_above="@+id/fragment_coming_out_list__back_mode_selecting_button"
+        android:layout_margin="8dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/fragment_coming_out_list__back_mode_selecting_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
