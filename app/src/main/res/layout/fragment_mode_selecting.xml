@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView3"
-                android:src="@drawable/Buttyake"
+                android:src="@drawable/buttyake"
                 android:layout_marginTop="32dp" />
 
             <TextView
@@ -134,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView4"
-                android:src="@drawable/Gimon"
+                android:src="@drawable/gimon"
                 android:layout_marginTop="32dp" />
 
             <TextView
