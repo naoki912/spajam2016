@@ -116,7 +116,7 @@ public class ModeSelectingFragment extends Fragment {
             }
         }).start();
 
-        view.findViewById(R.id.select_question_button).setOnClickListener((View v) -> {
+        view.findViewById(R.id.fragment_mode_selecting__select_question_button).setOnClickListener((View v) -> {
             getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
                 @Override
                 public Loader<String> onCreateLoader(int id, Bundle args) {
@@ -162,7 +162,7 @@ public class ModeSelectingFragment extends Fragment {
             }).forceLoad();
         });
 
-        view.findViewById(R.id.select_coming_out_button).setOnClickListener((View v) -> {
+        view.findViewById(R.id.fragment_mode_selecting__select_coming_out_button).setOnClickListener((View v) -> {
             getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
                 @Override
                 public Loader<String> onCreateLoader(int id, Bundle args) {
