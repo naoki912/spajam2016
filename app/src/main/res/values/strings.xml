@@ -8,4 +8,6 @@
     <string name="create">Create a new group</string>
     <string name="group_id">Group ID</string>
     <string name="welcome">Welcome</string>
+    <string name="question">Question</string>
+    <string name="coming_out">Coming out</string>>
 </resources>

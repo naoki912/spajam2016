@@ -16,7 +16,9 @@
         android:background="@drawable/text_edit_background"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp" />
+        android:layout_marginTop="160dp"
+        android:hint="@string/question"
+        android:padding="8dp" />
 
     <Button
         android:layout_width="wrap_content"

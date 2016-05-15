@@ -8,6 +8,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/fragment_item_coming_out__text_view"
         android:textSize="32sp"
-        android:text="Hello world!!!"
+        android:text=""
         android:background="@drawable/test" />
 </RelativeLayout>
