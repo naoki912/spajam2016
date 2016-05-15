@@ -19,26 +19,19 @@
         android:background="@drawable/text_edit_background"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="50dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:layout_below="@+id/center_view2"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/center_view2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send"
         android:id="@+id/fragment_coming_out_input__decision_button"
-        android:layout_below="@+id/fragment_coming_out_input__text_edit_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/center_view2"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="128dp" />
 </RelativeLayout>
