@@ -76,7 +76,7 @@ public class QuestionInputFragment extends Fragment {
                         public String loadInBackground() {
                             try {
                                 return utils.okPostURL("http://spajam.hnron.net:8080/question/"
-                                        + String.valueOf(state_group_id)
+                                        + String.valueOf(state_group_id) + '/'
                                         + String.valueOf(user_id),
                                         question_text
                                 );
