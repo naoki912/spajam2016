@@ -3,6 +3,12 @@ package wcdi.spajam2016;
 
 import android.util.Log;
 
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,6 +50,19 @@ class utils {
         connection.connect();
 
         return readString(connection.getInputStream());
+    }
+
+    public static String okPostURL(String url, String post) throws IOException {
+        RequestBody requestBody = RequestBody.create(
+                MediaType.parse("text/plain"), post
+        );
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        Response response = client.newCall(request).execute();
+        return response.body().toString();
     }
 
 }

@@ -3,60 +3,52 @@ package wcdi.spajam2016;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import java.io.IOException;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link QuestionInputFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link QuestionInputFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class QuestionInputFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    /**
+     * question_text をPOSTのパラメータに挿入
+     */
+
+    private static final String EXTRA_INT__STATE_GROUP_ID = "state_group_id";
+    private static final String EXTRA_INT__USER_ID = "user_id";
 
     private OnFragmentInteractionListener mListener;
 
+    private Integer state_group_id;
+    private Integer user_id;
+
     public QuestionInputFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QuestionInputFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static QuestionInputFragment newInstance(String param1, String param2) {
+    public static QuestionInputFragment newInstance(int state_group_id, int user_id) {
         QuestionInputFragment fragment = new QuestionInputFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_INT__STATE_GROUP_ID, state_group_id);
+        bundle.putInt(EXTRA_INT__USER_ID, user_id);
+        fragment.setArguments(bundle);
+        return new QuestionInputFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            Bundle bundle = new Bundle();
+            this.state_group_id = bundle.getInt(EXTRA_INT__STATE_GROUP_ID);
+            this.user_id = bundle.getInt(EXTRA_INT__USER_ID);
         }
     }
 
@@ -67,11 +59,63 @@ public class QuestionInputFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_question_input, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        final EditText editText = (EditText) view.findViewById(R.id.fragment_question_input__text_edit_view);
+
+        view.findViewById(R.id.fragment_question_input__decision_button).setOnClickListener((View v) -> {
+            if (editText.getText().toString().isEmpty()) {
+                return;
+            }
+
+            final String question_text = editText.getText().toString();
+
+            getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
+                @Override
+                public Loader<String> onCreateLoader(int id, Bundle args) {
+                    return new AsyncTaskLoader<String>(getContext()) {
+                        @Override
+                        public String loadInBackground() {
+                            try {
+                                return utils.okPostURL("http://spajam.hnron.net:8080/question/"
+                                        + String.valueOf(state_group_id)
+                                        + String.valueOf(user_id),
+                                        question_text
+                                );
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                return null;
+                            }
+                        }
+                    };
+                }
+
+                @Override
+                public void onLoadFinished(Loader<String> loader, String data) {
+                    getLoaderManager().destroyLoader(0);
+
+/*                    if (data == null) {
+                        return;
+                    }
+                    try {
+                        JSONObject object = new JSONObject(data);
+
+                        onEventListener.onJoin(
+                                object.getInt("group_id"),
+                                password,
+                                object.getInt("user_id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }*/
+                }
+
+                @Override
+                public void onLoaderReset(Loader<String> loader) {
+                }
+            }).forceLoad();
+        });
     }
 
     @Override
@@ -91,16 +135,6 @@ public class QuestionInputFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
