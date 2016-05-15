@@ -18,10 +18,6 @@ import java.io.IOException;
 
 public class QuestionInputFragment extends Fragment {
 
-    /**
-     * question_text をPOSTのパラメータに挿入
-     */
-
     private static final String EXTRA_INT__STATE_GROUP_ID = "state_group_id";
     private static final String EXTRA_INT__USER_ID = "user_id";
 
