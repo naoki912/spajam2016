@@ -4,29 +4,34 @@
     android:layout_height="match_parent"
     tools:context="wcdi.spajam2016.ComingOutInputFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <View
+        android:id="@+id/center_view2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"
         android:id="@+id/fragment_coming_out_input__text_edit_view"
         android:textSize="32sp"
         android:background="@drawable/text_edit_background"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="126dp"
         android:paddingLeft="4dp"
-        android:paddingRight="4dp" />
+        android:paddingRight="4dp"
+        android:layout_above="@+id/center_view2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send"
         android:id="@+id/fragment_coming_out_input__decision_button"
-        android:layout_marginBottom="243dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/center_view2"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
