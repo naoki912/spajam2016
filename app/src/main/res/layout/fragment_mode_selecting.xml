@@ -3,41 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="wcdi.spajam2016.ModeSelectingFragment">
-    <View
-        android:id="@+id/center_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerInParent="true"
-        />
 
-    <RelativeLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignEnd="@+id/center_view"
-        android:id="@+id/zz">
+        android:layout_height="wrap_content"
+        android:text="Question"
+        android:id="@+id/fragment_mode_selecting__select_question_button"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="320dp" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Question"
-            android:id="@+id/fragment_mode_selecting__select_question_button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="8dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignStart="@+id/center_view">
+        android:layout_height="wrap_content"
+        android:text="Coming out"
+        android:id="@+id/fragment_mode_selecting__select_coming_out_button"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/fragment_mode_selecting__select_question_button"
+        android:layout_centerInParent="true" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Coming out"
-            android:id="@+id/fragment_mode_selecting__select_coming_out_button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="8dp" />
-    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp" />
+
 </RelativeLayout>

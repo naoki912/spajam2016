@@ -75,6 +75,8 @@ public class MainActivityFragment extends Fragment {
 
                 @Override
                 public void onLoadFinished(Loader<String> loader, String data) {
+                    getLoaderManager().destroyLoader(0);
+
                     if (data == null) {
                         return;
                     }
@@ -115,6 +117,8 @@ public class MainActivityFragment extends Fragment {
 
                 @Override
                 public void onLoadFinished(Loader<String> loader, String data) {
+                    getLoaderManager().destroyLoader(0);
+
                     if (data == null) {
                         return;
                     }
