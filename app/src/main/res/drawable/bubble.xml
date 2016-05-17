@@ -10,7 +10,8 @@
                 android:startColor="#106677ff"
                 android:endColor="#885588ff">
             </gradient>
-            <size android:width="32dp"
+            <size
+                android:width="32dp"
                 android:height="32dp" />
         </shape>
     </item>

@@ -50,7 +50,6 @@ public class QuestionInputFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_question_input, container, false);
     }
 
@@ -74,10 +73,11 @@ public class QuestionInputFragment extends Fragment {
                         @Override
                         public String loadInBackground() {
                             try {
-                                return utils.okPostURL("http://spajam.hnron.net:8080/question/"
-                                        + String.valueOf(state_group_id) + '/'
-                                        + String.valueOf(user_id),
-                                        question_text
+                                return utils.okPostURL(
+                                    "http://spajam.hnron.net:8080/question/" +
+                                        String.valueOf(state_group_id) + '/' +
+                                        String.valueOf(user_id),
+                                    question_text
                                 );
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -116,11 +116,11 @@ public class QuestionInputFragment extends Fragment {
 /*    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnEventListener) {
+            mListener = (OnEventListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnEventListener");
         }
     }*/
 

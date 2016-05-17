@@ -31,6 +31,7 @@ public class ModeSelectingFragment extends Fragment {
     public static final String ARG_PARAM1 = "param1";
     public static final String ARG_PARAM2 = "param2";
     public static final String ARG_PARAM3 = "param3";
+
     public Integer groupId;
     public Integer password;
     public Integer userId;
@@ -57,6 +58,7 @@ public class ModeSelectingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             groupId = getArguments().getInt(ARG_PARAM1);
             password = getArguments().getInt(ARG_PARAM2);
@@ -78,75 +80,69 @@ public class ModeSelectingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final TextView groupIdView = (TextView) view.findViewById(R.id.group_id);
-        groupIdView.setText(password.toString());
+        groupIdView.setText(String.valueOf(password));
 
         final TextView numberOfMembersView = (TextView) view.findViewById(R.id.number_of_member);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (numberOfMembersView != null && listener != null) {
-                    try {
-                        String data = utils.getURL(
-                            "http://spajam.hnron.net:8080/group/users/" + groupId.toString()
-                        );
+        new Thread(() -> {
+            while (numberOfMembersView != null && listener != null) {
+                try {
+                    String data = utils.getURL(
+                        "http://spajam.hnron.net:8080/group/users/" + groupId.toString()
+                    );
 
-                        if (data != null) {
-                            new Handler(Looper.getMainLooper()).post(() -> {
-                                try {
-                                    numberOfMembersView.setText(String.valueOf(
-                                        new JSONObject(data).getInt("number_of_people")
-                                    ));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        try {
+                            numberOfMembersView.setText(String.valueOf(
+                                new JSONObject(data).getInt("number_of_people")
+                            ));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-
-                        String data2 = utils.getURL(
-                            "http://spajam.hnron.net:8080/state_group/latest/" + groupId.toString()
-                        );
-
-                        if (data2 != null) {
-                            try {
-                                JSONObject object = new JSONObject(data);
-                                final Integer session_id = object.getInt("id");
-                                //if (session_id > 0) {
-                                    if (object.getString("flag").equals("question")) {
-                                        listener.onQuestionModeChanged(
-                                            groupId,
-                                            password,
-                                            userId,
-                                            session_id
-                                        );
-                                    } else {
-                                        listener.onComingOutModeChanged(
-                                            groupId,
-                                            password,
-                                            userId,
-                                            session_id
-                                        );
-                                    }
-                                //}
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
 
-        view.findViewById(R.id.fragment_mode_selecting__select_question_button).setOnClickListener((View v) -> {
+        new Thread(() -> {
+            while (numberOfMembersView != null && listener != null) {
+                try {
+                    String data = utils.getURL(
+                        "http://spajam.hnron.net:8080/state_group/latest/" + groupId.toString()
+                    );
+
+                    JSONObject object = new JSONObject(data);
+
+                    if (object.getString("flag").equals("question")) {
+                        listener.onQuestionModeChanged(
+                            groupId, password, userId, object.getInt("id")
+                        );
+                    } else {
+                        listener.onComingOutModeChanged(
+                            groupId, password, userId, object.getInt("id")
+                        );
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        view.findViewById(R.id.question_mode_button).setOnClickListener((View v) -> {
             getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
                 @Override
                 public Loader<String> onCreateLoader(int id, Bundle args) {
@@ -172,6 +168,7 @@ public class ModeSelectingFragment extends Fragment {
                     if (data == null) {
                         return;
                     }
+
                     try {
                         JSONObject object = new JSONObject(data);
 
@@ -192,7 +189,7 @@ public class ModeSelectingFragment extends Fragment {
             }).forceLoad();
         });
 
-        view.findViewById(R.id.fragment_mode_selecting__select_coming_out_button).setOnClickListener((View v) -> {
+        view.findViewById(R.id.coming_out_mode_button).setOnClickListener((View v) -> {
             getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
                 @Override
                 public Loader<String> onCreateLoader(int id, Bundle args) {
@@ -243,12 +240,7 @@ public class ModeSelectingFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof OnEventListener) {
-            listener = (OnEventListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                + " must implement OnEventListener");
-        }
+        listener = (OnEventListener) context;
     }
 
     @Override

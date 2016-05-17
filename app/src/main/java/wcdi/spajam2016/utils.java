@@ -1,8 +1,5 @@
 package wcdi.spajam2016;
 
-
-import android.util.Log;
-
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -22,12 +19,15 @@ class utils {
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(inputStream)
         );
+
         StringBuilder builder = new StringBuilder();
         String line;
 
         while ((line = reader.readLine()) != null) {
             builder.append(line);
         }
+
+        reader.close();
 
         return builder.toString();
     }
@@ -57,9 +57,9 @@ class utils {
                 MediaType.parse("text/plain"), post
         );
         Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
+            .url(url)
+            .post(requestBody)
+            .build();
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
         return response.body().toString();

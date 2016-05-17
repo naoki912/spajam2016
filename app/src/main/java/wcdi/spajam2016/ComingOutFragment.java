@@ -26,7 +26,7 @@ public class ComingOutFragment extends Fragment {
 
     private int state_group_id;
 
-    private OnFragmentInteractionListener mListener;
+    private OnEventListener listener;
 
     public ComingOutFragment() {
     }
@@ -119,21 +119,21 @@ public class ComingOutFragment extends Fragment {
 /*    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnEventListener) {
+            listener = (OnEventListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnEventListener");
         }
     }*/
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
-    public interface OnFragmentInteractionListener {
+    public interface OnEventListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }

@@ -4,8 +4,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="join">Join</string>
-    <string name="create">Create a new group</string>
+    <string name="join">Join group</string>
+    <string name="create">Create group</string>
     <string name="group_id">Group ID</string>
     <string name="welcome">Welcome</string>
     <string name="question">Question</string>

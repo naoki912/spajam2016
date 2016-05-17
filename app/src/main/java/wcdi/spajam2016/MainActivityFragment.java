@@ -19,10 +19,6 @@ import java.io.IOException;
 
 public class MainActivityFragment extends Fragment {
 
-    public static interface OnEventListener {
-        public abstract void onJoin(Integer groupId, Integer password, Integer userId);
-    }
-
     OnEventListener onEventListener;
 
     public MainActivityFragment() {
@@ -45,9 +41,9 @@ public class MainActivityFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
+        LayoutInflater inflater,
+        ViewGroup container,
+        Bundle savedInstanceState
     ) {
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
@@ -92,9 +88,10 @@ public class MainActivityFragment extends Fragment {
                         JSONObject object = new JSONObject(data);
 
                         onEventListener.onJoin(
-                                object.getInt("group_id"),
-                                password,
-                                object.getInt("user_id"));
+                            object.getInt("group_id"),
+                            password,
+                            object.getInt("user_id")
+                        );
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -134,9 +131,9 @@ public class MainActivityFragment extends Fragment {
                     try {
                         JSONObject object = new JSONObject(data);
                         onEventListener.onJoin(
-                                object.getInt("group_id"),
-                                object.getInt("password"),
-                                object.getInt("user_id")
+                            object.getInt("group_id"),
+                            object.getInt("password"),
+                            object.getInt("user_id")
                         );
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -148,6 +145,10 @@ public class MainActivityFragment extends Fragment {
                 }
             }).forceLoad();
         });
+    }
+
+    public static interface OnEventListener {
+        public abstract void onJoin(Integer groupId, Integer password, Integer userId);
     }
 
 }

@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#263238</color>
-    <color name="colorAccent">#F07398</color>
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="windowBackground1">#F49876</color>
-    <color name="windowBackground2">#BF6EEC</color>
+    <color name="colorAccent">#4FBFEF</color>
+    <color name="colorBackgroun4">#FFFFFF</color>
+    <color name="windowBackground1">#FfCC76</color>
+    <color name="windowBackground2">#6688ee</color>
 </resources>
