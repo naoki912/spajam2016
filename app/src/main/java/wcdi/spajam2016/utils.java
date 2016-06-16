@@ -52,6 +52,15 @@ class utils {
         return readString(connection.getInputStream());
     }
 
+    public static String okGetURL(String url) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
     public static String okPostURL(String url, String post) throws IOException {
         RequestBody requestBody = RequestBody.create(
                 MediaType.parse("text/plain"), post
@@ -62,7 +71,19 @@ class utils {
             .build();
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
-        return response.body().toString();
+        return response.body().string();
     }
 
+    public static String okJsonPostURL(String url, String json) throws IOException {
+        RequestBody requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"), json
+        );
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
 }
