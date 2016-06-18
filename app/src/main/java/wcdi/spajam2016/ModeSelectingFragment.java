@@ -125,11 +125,11 @@ public class ModeSelectingFragment extends Fragment {
                         listener.onQuestionModeChanged(
                             groupId, password, userId, object.getInt("id")
                         );
-                    } else {
+                    } else if (object.getString("flag").equals("coming_out")) {
                         listener.onComingOutModeChanged(
                             groupId, password, userId, object.getInt("id")
                         );
-                    }
+                    } else {}
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,6 @@
 package wcdi.spajam2016;
 
-import android.net.Uri;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -18,22 +18,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class ComingOutFragment extends Fragment {
+    private static final String EXTRA_INT__GROUP_ID = "group_id";
+    private static final String EXTRA_INT__PASSWORD = "password";
+    private static final String EXTRA_INT__USER_ID = "user_id";
     private static final String EXTRA_INT__STATE_GROUP_ID = "state_group_id";
 
+    private int group_id;
+    private int password;
+    private int userId;
     private int state_group_id;
 
-    private OnEventListener listener;
+    private OnEventListener mListener;
 
     public ComingOutFragment() {
     }
 
-    public static ComingOutFragment newInstance(int state_group_id) {
+    public static ComingOutFragment newInstance(Integer groupId, Integer password, Integer userId, Integer state_group_id) {
         ComingOutFragment fragment = new ComingOutFragment();
         Bundle args = new Bundle();
+        args.putInt(EXTRA_INT__GROUP_ID, groupId);
+        args.putInt(EXTRA_INT__PASSWORD, password);
+        args.putInt(EXTRA_INT__STATE_GROUP_ID, userId);
         args.putInt(EXTRA_INT__STATE_GROUP_ID, state_group_id);
         fragment.setArguments(args);
         return fragment;
@@ -43,14 +51,16 @@ public class ComingOutFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            state_group_id = getArguments().getInt(EXTRA_INT__STATE_GROUP_ID);
+            this.group_id = getArguments().getInt(EXTRA_INT__GROUP_ID);
+            this.password = getArguments().getInt(EXTRA_INT__PASSWORD);
+            this.userId = getArguments().getInt(EXTRA_INT__USER_ID);
+            this.state_group_id = getArguments().getInt(EXTRA_INT__STATE_GROUP_ID);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_coming_out_list, container, false);
     }
 
@@ -58,7 +68,12 @@ public class ComingOutFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getActivity(), R.layout.fragment_item_coming_out, R.id.fragment_item_coming_out__text_view
+        );
+
+        ListView listView = (ListView) view.findViewById(R.id.fragment_coming_out_list__text_list);
+        listView.setAdapter(adapter);
 
         getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
                     @Override
@@ -67,7 +82,7 @@ public class ComingOutFragment extends Fragment {
                             @Override
                             public String loadInBackground() {
                                 try {
-                                    return utils.getURL("http://spajam.hnron.net:8080/question/"
+                                    return utils.getURL("http://spajam.hnron.net:8080/coming_out/"
                                                     + String.valueOf(state_group_id)
                                     );
                                 } catch (IOException e) {
@@ -95,7 +110,7 @@ public class ComingOutFragment extends Fragment {
                             JSONArray jsonArray = object.getJSONArray("coming_out_texts");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                list.add(jsonArray.getString(i));
+                                adapter.add(jsonArray.getString(i));
                             }
 
                         } catch (JSONException e) {
@@ -107,34 +122,55 @@ public class ComingOutFragment extends Fragment {
             }
         }).forceLoad();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                getActivity(), R.layout.fragment_item_coming_out, R.id.fragment_item_coming_out__text_view
-        );
+        view.findViewById(R.id.fragment_coming_out_list__back_mode_selecting_button)
+                .setOnClickListener((View v) -> {
+                    getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<String>() {
+                        @Override
+                        public Loader<String> onCreateLoader(int id, Bundle args) {
+                            return new AsyncTaskLoader<String>(getContext()) {
+                                @Override
+                                public String loadInBackground() {
+                                    try {
+                                        return utils.okPostURL("http://spajam.hnron.net:8080/create_none/"
+                                                + String.valueOf(group_id), "a");
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        return null;
+                                    }
+                                }
+                            };
+                        }
+                        @Override
+                        public void onLoadFinished(Loader<String> loader, String data) {
+                            getLoaderManager().destroyLoader(0);
+                            mListener.onModeSelectingChanged(group_id, password, userId);
+                        }
+                        @Override
+                        public void onLoaderReset(Loader<String> loader) {
+                        }
+                    }).forceLoad();
+                });
 
-        ListView listView = (ListView) view.findViewById(R.id.fragment_coming_out_list__text_list);
-        listView.setAdapter(adapter);
-        adapter.addAll(list);
     }
 
-/*    @Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnEventListener) {
-            listener = (OnEventListener) context;
+            mListener = (OnEventListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnEventListener");
         }
-    }*/
+    }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        listener = null;
+        mListener = null;
     }
 
     public interface OnEventListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onModeSelectingChanged(Integer groupId, Integer password, Integer userId);
     }
 }
